@@ -1,45 +1,52 @@
 <?php
-require_once 'login-check.php';
-require_once 'function/function.php';
+include_once 'login-check.php';
+include_once 'function/function.php';
 
-//ຮັບຄ່າຈາກຟອມເມື່ອກົດປຸ່ມ btnAdd
 if (isset($_POST['btnAdd'])) {
-    $grade = data_input($_POST['grade']);
-    $sal = str_replace(".", "", data_input($_POST['sal']));
-
-    //ກວດສອບ ຂັ້ນເງິນເດືອນ grade ວ່າຊໍ້າກັນ ຫຼື ບໍ່
-    $sql = "SELECT *FROM salary WHERE grade='$grade' ";
+    $S_id = data_input($_POST['S_id']);
+    $name = data_input($_POST['name']);
+  //  $phone = data_input($_POST['phone']);
+    $addres = data_input($_POST['addres']);
+   // $incentive = str_replace(".", "", $_POST['incentive']);
+    //ກວດສອບວ່າລະຫັດຊໍ້າຫຼືບໍ່
+    $sql = "SELECT *FROM supplier WHERE S_id='$S_id' ";
     $result = mysqli_query($link, $sql);
     if (mysqli_num_rows($result) > 0) {
-        $error_grade = "ລະຫັດນີ້ຖືກນໍາໃຊ້ແລ້ວ";
+        $error_S_id = "ລະຫັດນີ້ຖືກນໍາໃຊ້ແລ້ວ";
     } else {
-        $sql = "INSERT INTO salary(grade, sal) VALUES ('$grade', '$sal')";
+        $sql = "INSERT INTO supplier VALUES('$S_id', '$name',  '$addres')";
         $result = mysqli_query($link, $sql);
         if ($result) {
-            $grade = $sal = "";
-            $message = '<script>swal("ສໍາເລັດ", "ຂໍ້ມູນບັນທຶກລົງໃນຖານຂໍ້ມູນສໍາເລັດ", "success", {button: "ຕົກລົງ",});</script>';
+            $message = '<script>swal("ສໍາເລັດ", "ຂໍ້ມູນຖືກບັນທຶກລົງໃນຖານຂໍ້ມູນແລ້ວ",
+            "success",{button: "ຕົກລົງ"});</script>';
+            $S_id = $name = $addres = null;
         } else {
             echo mysqli_error($link);
         }
     }
-} else if (@$_GET['action'] == 'edit') { //ຮັບຄ່າເມື່ອກົດ ແກ້ໄຂໃນຕາຕະລາງ ແລ້ວ ເອົາຄ່າຄ້າງຟອມ
-    $grade = $_GET['grade'];
-    $sql = "SELECT *FROM salary WHERE grade='$grade'";
+} else if (@$_GET['action'] == 'edit') { //ຖ້າກົດເຄື່ອງໝາຍແກ້ໄຂທີ່ຫ້ອງຕາຕະລາງໃຫ້ເອົງຄ່າຂື້ນຄ້າງຟອມ
+    $S_id = $_GET['S_id'];
+    $sql = "SELECT *FROM supplier WHERE S_id='$S_id'";
     $result = mysqli_query($link, $sql);
     $row = mysqli_fetch_assoc($result);
-    $sal = $row['sal'];
-} else if (isset($_POST['btnEdit'])) { //ຖ້າກົດປຸ່ມແກ້ໄຂ
-    $grade = data_input($_POST['grade']);
-    $sal = str_replace(".", "", data_input($_POST['sal']));
+    $name = $row['name'];
 
-    $sql = "UPDATE salary SET sal='$sal' WHERE grade='$grade'";
+    $addres = $row['addres'];
+} else if (isset($_POST['btnEdit'])){
+    $S_id= data_input($_POST['S_id']);
+    $name = data_input($_POST['name']);
+     $addres = data_input($_POST['addres']);
+  //  $incentive = str_replace(".", "", $_POST['incentive']);
+   
+    $sql = "UPDATE supplier SET name='$name',addres='$addres' WHERE S_id='$S_id'";
     $result = mysqli_query($link, $sql);
     if ($result) {
-        $grade = $sal = "";
-        $message = '<script>swal("ສໍາເລັດ", "ປັບປຸງຂໍ້ມູນໃນຖານຂໍ້ມູນສໍາເລັດ", "success", {button: "ຕົກລົງ",});</script>';
+         $message = '<script>swal("ສໍາເລັດ", "ປັບປຸງຂໍ້ມູນໃນຖານຂໍ້ມູນແລ້ວ","success",{button: "ຕົກລົງ"});</script>';
+        $S_id= $name = $phone = $addres = null;
     } else {
-        echo mysqli_error($link);
-    }
+            echo mysqli_error($link);
+        }
+    
 }
 ?>
 
@@ -53,7 +60,7 @@ if (isset($_POST['btnAdd'])) {
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>ລະບົບຈັດການຂໍ້ມູນພະນັກງານ</title>
+    <title>ລະບົບຈັດການຂໍ້ມູນຜູ້ສະໜອງ</title>
     <link rel="icon" href="images/icon_logo.jpg">
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -88,33 +95,39 @@ if (isset($_POST['btnAdd'])) {
                 <div class="row mt-4">
                     <div class="col-md-4">
                         <fieldset class="border border-primary p-2 px-4 pb-4" style="border-radius: 15px; background-color: #E7E9EB">
-                            <legend class="float-none w-auto p-2 h5">ຈັດການຂໍ້ມູນເງິນເດືອນ</legend>
+                            <legend class="float-none w-auto p-2 h5">ຈັດການຂໍ້ມູນສາຂາຮຽນ</legend>
                             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 
                                 <div class="mb-3">
-                                    <label for="grade" class="form-label">ຂັ້ນເງິນເດືອນ:</label>
-                                    <input type="text" class="form-control" id="grade" placeholder="ປ້ອນຊື່ ຂັ້ນເງິນເດືອນ" name="grade" value="<?= @$grade ?>" required maxlength="3" <?php if (@$_GET['action'] == 'edit') echo 'readonly'; ?>>
+                                    <label for="ID" class="form-label">ລະຫັດສາຂາ</label>
+                                    <input type="text" class="form-control" id="S_id" placeholder="ປ້ອນລະຫັດສາຂາ" name=" S_id" value="<?= @$S_id ?>" required maxlength="3" <?php if (@$_GET['action'] == 'edit') echo 'readonly'; ?>>
                                     <div class="form-control-feedback">
                                         <div class="text-danger align-middle">
-                                            <!-- ສະແດງ error ເມື່ອຂັ້ນເງິນເດືອນຊໍ້າກັນ  -->
-                                            <?= @$error_grade ?>
+                                            <!-- ສະແດງ error ເມື່ອລະຫັດພະແນກຊໍ້າກັນ  -->
+                                            <?= @$error_S_id ?>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="sal" class="form-label">ເງິນເດືອນ:</label>
-                                    <input type="text" class="form-control" id="sal" placeholder="ປ້ອນຈໍານວນເງິນເດືອນ" name="sal" value="<?= @$sal ?>" required>
+                                    <label for="name" class="form-label">ຊື່ສາຂາພາສາລາວ:</label>
+                                    <input type="text" class="form-control" id="name" placeholder="ປ້ອນຊື່ສາຂາພາສາລາວ" name="name" value="<?= @$name ?>" required>
                                 </div>
-                                <?php
-                                if (@$_GET['action'] == 'edit') {
-                                    echo '<button type="submit" name="btnEdit" class="btn btn-info" style="width: 110px; border-radius: 20px"><i class="fas fa-edit"></i>&nbsp;&nbsp;ແກ້ໄຂ</button> ';
-                                } else {
-                                    echo '<button type="submit" name="btnAdd" class="btn btn-primary" style="width: 110px; border-radius: 20px"><i class="fas fa-plus-circle"></i>&nbsp;&nbsp;ເພີ້ມ</button> ';
-                                }
-                                ?>
 
-                                <a href="salary.php" class="btn btn-warning" style="width: 110px; border-radius: 20px"><i class="fas fa-sync"></i>&nbsp;&nbsp;ຍົກເລີກ</a>
+                               
+
+                                 <div class="mb-3">
+                                    <label for="addres" class="form-label">ຊື່ສາຂາພາສາອັງກິດ:</label>
+                                    <input type="text" class="form-control" id="addres" placeholder="ປ້ອນຊື່ສາຂາພາສາອັງກິດ" name="addres" value="<?= @$addres ?>" required>
+                                </div> 
+                                <?php
+                                 if (@$_GET['action'] == 'edit') {
+                                     echo '<button type="submit" name="btnEdit" class="btn btn-info" style="width: 110px; border-radius: 20px"><i class="fas fa-edit"></i>&nbsp;&nbsp;ແກ້ໄຂ</button> ';
+                                 } else {
+                                     echo '<button type="submit" name="btnAdd" class="btn btn-primary" style="width: 110px; border-radius: 20px"><i class="fas fa-plus-circle"></i>&nbsp;&nbsp;ເພີ້ມ</button> ';
+                                 }
+                                ?>
+                                <a href="supplier.php" class="btn btn-warning" style="width: 110px; border-radius: 20px"><i class="fas fa-sync"></i>&nbsp;&nbsp;ຍົກເລີກ</a>
 
                             </form>
                         </fieldset>
@@ -126,29 +139,34 @@ if (isset($_POST['btnAdd'])) {
                                 <thead class="bg-secondary text-center text-white">
                                     <tr>
                                         <th>ລໍາດັບ</th>
-                                        <th>ຂັ້້ນເງິນເດືອນ</th>
-                                        <th>ເງິນເດືອນ</th>
+                                        <th>ລະຫັດສາຂາ</th>
+                                        <th>ຊື່ສາຂາພາສາລາວ</th>
+                                  
+                                        <th>ຊື່ສາຂາພາສາອັງກິດ</th>
+                                       <!-- <th>ເງິນອຸດໜູນ</th> -->
                                         <th>Option</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php
-                                    $sql = "SELECT *FROM salary";
+                                 <?php
+                                    $sql = "SELECT *FROM supplier ORDER BY name ASC";
                                     $result = mysqli_query($link, $sql);
-                                    $num = 1;
-                                    while ($row = mysqli_fetch_assoc($result)) {
-                                    ?>
+                                    $number = 1;
+                                    while($row = mysqli_fetch_assoc($result)) {           
+                                    ?> 
                                         <tr>
-                                            <td class="text-center"><?= $num++ ?></td>
-                                            <td class="text-center"><?= $row['grade'] ?></td>
-                                            <td class="text-center"><?= number_format($row['sal'], 0, ",", ".") ?></td>
+                                            <td class="text-center"><?= @$number++ ?></td>
+                                            <td class="text-center"><?= @$row['S_id'] ?></td> 
+                                            <td><?= @$row['name'] ?></td>
+                                            <td><?= @$row['addres'] ?></td>
+                                         
                                             <td class="text-center" style="width: 80px">
-                                                <a href="salary.php?action=edit&grade=<?= $row['grade'] ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="ແກ້ໄຂຂໍ້ມູນ"><i class="fas fa-edit text-success"></i></a>
-                                                <a href="#" onclick="deletedata('<?= $row['grade'] ?>')" data-bs-toggle="tooltip" data-bs-placement="bottom" title="ລືບຂໍ້ມູນ"><i class="fas fa-trash-alt text-danger"></i></a>
+                                                <a href="supplier.php?action=edit&S_id=<?= @$row['S_id'] ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="ແກ້ໄຂຂໍ້ມູນ"><i class="fas fa-edit text-success"></i></a>
+                                                <a href="#" onclick="deletedata('<?= $row['S_id'] ?>')" data-bs-toggle="tooltip" data-bs-placement="bottom" title="ລືບຂໍ້ມູນ"><i class="fas fa-trash-alt text-danger"></i></a>
                                             </td>
                                         </tr>
-                                    <?php } ?>
-                                </tbody>
+                                        <?php } ?>
+                                </tbody> 
                             </table>
                         </fieldset>
                     </div>
@@ -165,15 +183,10 @@ if (isset($_POST['btnAdd'])) {
 </html>
 
 <script>
-    $(document).ready(function() {
+     $(document).ready(function() {
         $('#example').DataTable();
 
-        /*ພີມໃຫ້ມີຫຼັງຈຸດ */
-        $('#sal').priceFormat({
-            prefix: '',
-            thousandsSeparator: '.',
-            centsLimit: 0
-        });
+     
 
     });
 
@@ -187,10 +200,9 @@ if (isset($_POST['btnAdd'])) {
     if (window.history.replaceState) {
         window.history.replaceState(null, null, window.location.href);
     }
-
-    //ສ້າງຟັງຊັນ deletedata ເພື່ອລືບຂໍ້ມູນ
-    function deletedata(id) {
-        //alert(id);
+    //ສ້າງຟັງຊັນເພື່ອລົບ
+    function deletedata(id){
+        // alert(id);
         swal({
                 title: "ເຈົ້າຕ້ອງການລືບແທ້ ຫຼື ບໍ່?",
                 text: "ຂໍ້ມູນລະຫັດ " + id + ", ເມື່ອລືບຈະບໍ່ສາມາດກູ້ຂໍ້ມູນຄືນໄດ້!",
@@ -202,10 +214,10 @@ if (isset($_POST['btnAdd'])) {
             .then((willDelete) => {
                 if (willDelete) {
                     $.ajax({
-                        url: "salary-delete.php",
+                        url: "sup-delete.php",
                         method: "post",
                         data: {
-                            grade: id
+                            S_id: id
                         },
                         success: function(data) {
                             if (data) {

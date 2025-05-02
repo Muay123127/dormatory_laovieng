@@ -31,21 +31,20 @@ if (isset($_POST['btnAdd'])) {
     $name = $row['name'];
     $loc = $row['loc'];
     $incentive = $row['incentive'];
-} else if (isset($_POST['btnEdit'])){
+} else if (isset($_POST['btnEdit'])) {
     $dno = data_input($_POST['dno']);
     $name = data_input($_POST['name']);
     $loc = data_input($_POST['loc']);
     $incentive = str_replace(".", "", $_POST['incentive']);
-   
+
     $sql = "UPDATE dept SET name='$name',loc='$loc', incentive='$incentive' WHERE dno='$dno'";
     $result = mysqli_query($link, $sql);
     if ($result) {
-         $message = '<script>swal("ສໍາເລັດ", "ປັບປຸງຂໍ້ມູນໃນຖານຂໍ້ມູນແລ້ວ","success",{button: "ຕົກລົງ"});</script>';
+        $message = '<script>swal("ສໍາເລັດ", "ປັບປຸງຂໍ້ມູນໃນຖານຂໍ້ມູນແລ້ວ","success",{button: "ຕົກລົງ"});</script>';
         $dno = $name = $loc = $incentive = null;
     } else {
-            echo mysqli_error($link);
-        }
-    
+        echo mysqli_error($link);
+    }
 }
 ?>
 
@@ -123,11 +122,11 @@ if (isset($_POST['btnAdd'])) {
                                     <input type="text" class="form-control" id="incentive" placeholder="ປ້ອນຈໍານວນເງິນອຸດໜູນ" name="incentive" value="<?= @$incentive ?>" required>
                                 </div>
                                 <?php
-                                 if (@$_GET['action'] == 'edit') {
-                                     echo '<button type="submit" name="btnEdit" class="btn btn-info" style="width: 110px; border-radius: 20px"><i class="fas fa-edit"></i>&nbsp;&nbsp;ແກ້ໄຂ</button> ';
-                                 } else {
-                                     echo '<button type="submit" name="btnAdd" class="btn btn-primary" style="width: 110px; border-radius: 20px"><i class="fas fa-plus-circle"></i>&nbsp;&nbsp;ເພີ້ມ</button> ';
-                                 }
+                                if (@$_GET['action'] == 'edit') {
+                                    echo '<button type="submit" name="btnEdit" class="btn btn-info" style="width: 110px; border-radius: 20px"><i class="fas fa-edit"></i>&nbsp;&nbsp;ແກ້ໄຂ</button> ';
+                                } else {
+                                    echo '<button type="submit" name="btnAdd" class="btn btn-primary" style="width: 110px; border-radius: 20px"><i class="fas fa-plus-circle"></i>&nbsp;&nbsp;ເພີ້ມ</button> ';
+                                }
                                 ?>
                                 <a href="department.php" class="btn btn-warning" style="width: 110px; border-radius: 20px"><i class="fas fa-sync"></i>&nbsp;&nbsp;ຍົກເລີກ</a>
 
@@ -150,24 +149,29 @@ if (isset($_POST['btnAdd'])) {
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $sql = "SELECT *FROM dept ORDER BY name ASC";
+                                    $sql = "SELECT * FROM dept ORDER BY name ASC";
                                     $result = mysqli_query($link, $sql);
                                     $number = 1;
-                                    while($row = mysqli_fetch_assoc($result)) {           
+                                    while ($row = mysqli_fetch_assoc($result)) {
                                     ?>
                                         <tr>
-                                            <td class="text-center"><?= @$number++ ?></td>
-                                            <td class="text-center"><?= @$row['dno'] ?></td> 
-                                            <td><?= @$row['name'] ?></td>
-                                            <td><?= @$row['loc'] ?></td>
-                                            <td class="text-end"><? number_format($row['incentive'],0,",",".")?></td>
+                                            <td class="text-center"><?= $number++ ?></td>
+                                            <td class="text-center"><?= $row['dno'] ?></td>
+                                            <td><?= $row['name'] ?></td>
+                                            <td><?= $row['loc'] ?></td>
+                                            <td class="text-center"><?= number_format($row['incentive'], 0, ",", ".") ?></td>
                                             <td class="text-center" style="width: 80px">
-                                                <a href="department.php?action=edit&dno=<?= @$row['dno'] ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="ແກ້ໄຂຂໍ້ມູນ"><i class="fas fa-edit text-success"></i></a>
-                                                <a href="#" onclick="deletedata('<?= @$row['dno'] ?>')" data-bs-placement="tooltip" title="ລືບຂໍ້ມູນ"><i class="fas fa-trash-alt text-danger"></i></a>
+                                                <a href="department.php?action=edit&dno=<?= $row['dno'] ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="ແກ້ໄຂຂໍ້ມູນ">
+                                                    <i class="fas fa-edit text-success"></i>
+                                                </a>
+                                                <a href="#" onclick="deletedata('<?= $row['dno'] ?>')" data-bs-placement="tooltip" title="ລືບຂໍ້ມູນ">
+                                                    <i class="fas fa-trash-alt text-danger"></i>
+                                                </a>
                                             </td>
                                         </tr>
-                                        <?php } ?>
-                                </tbody> 
+                                    <?php } ?>
+
+                                </tbody>
                             </table>
                         </fieldset>
                     </div>
@@ -207,7 +211,7 @@ if (isset($_POST['btnAdd'])) {
         window.history.replaceState(null, null, window.location.href);
     }
     //ສ້າງຟັງຊັນເພື່ອລົບ
-    function deletedata(id){
+    function deletedata(id) {
         // alert(id);
         swal({
                 title: "ເຈົ້າຕ້ອງການລືບແທ້ ຫຼື ບໍ່?",

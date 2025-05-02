@@ -6,9 +6,9 @@
              
             </div>
             <div>
-                <a href="#">Privacy Policy</a>
+                <a href="#"></a>
                 &middot;
-                <a href="#">Terms &amp; Conditions</a>
+                <a href="#"></a>
             </div>
         </div>
     </div>
