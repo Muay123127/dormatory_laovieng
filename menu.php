@@ -7,8 +7,9 @@
 
     <a class="navbar-brand ps-3 d-flex flex-column align-items-start" href="index.php">
         <img src="images/logo.png" alt="Logo" style="height: 60px; width: auto; margin-top: 50px; ">
-        <span style="color: white; font-family: 'Noto Sans Lao', sans-serif; font-weight: bold; font-size: 1.2rem; margin-top: 5px;">
-            ວິທະຍາໄລ ລາວວຽງ
+        <span style="color: white; font-family: 'Phetsarath OT', sans-serif; font-weight: bold; font-size: 1.2rem; margin-top: 5px;">
+     
+        ວິທະຍາໄລ ລາວວຽງ
         </span>
     </a>
     </a>
@@ -67,11 +68,25 @@
                             <a class="nav-link" href="department.php">ຈັດການຂໍ້ມູນພະແນກ</a>
                             <a class="nav-link" href="customer.php">ຈັດການຂໍ້ມູນພາກຮຽນ</a>
                             <a class="nav-link" href="supplier.php">ຈັດການຂໍ້ມູນສາຂາຮຽນ</a>
-                            <a class="nav-link" href="salary.php">ຈັດການຂໍ້ມູນເງິນເດືອນພື້ນຖານ</a>
+             
                             <a class="nav-link" href="emp-management.php">ຈັດການຂໍ້ມູນພະນັກງານ</a>
                         </nav>
                     </div>
-            
+                
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsereport" aria-expanded="false" aria-controls="collapseLayouts">
+                        <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
+                        ຫນ້າວຽກ
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapsemanagement" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="#">ຈອງຫ້ອງ</a>
+                            <a class="nav-link" href="#">ເຂົ້າພັກ</a>
+                            <a class="nav-link" href="#">ອອກພັກ</a>
+                            <a class="nav-link" href="#">ຍ້າຍຫ້ອງ</a>
+                            <a class="nav-link" href="#">ເບິ່ງສະມາຊິກໃນຫ້ອງ</a>
+                        </nav>
+                    </div>
                     <a class="nav-link" href="student-management.php">
                         <div class="sb-nav-link-icon"><i class="bi bi-person-lines-fill"></i></div>
                         ຂໍ້ມູນນັກສຶກສາ

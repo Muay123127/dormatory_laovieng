@@ -16,7 +16,7 @@ if (isset($_GET['department'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ລະບົບຈັດການຂໍ້ມູນພະນັກງານ</title>
+
     <link rel="icon" href="images/icon_logo.jpg">
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -40,8 +40,9 @@ if (isset($_GET['department'])) {
         </div>
         <div class="row">
             <div class="col-6">
-                ຊື່ບໍລິສັດ.............<br>
-                ທີ່ຢູ່.............<br>
+                ວິທະຍາໄລ ລາວວຽງ<br>
+                ຕັ້ງຢູ່ ບ້ານ ຄໍາຮຸ່ງ ຮ່ອມ 5 ມ.ໄຊທານີ<br>
+                ນະຄອນຫຼວງວຽງຈັນ<br>
                 ເບີໂທ.............<br>
             </div>
             <div class="col-6 text-end">
@@ -122,7 +123,7 @@ if (isset($_GET['department'])) {
                 <td class="text-center fw-bold border-0">ລາຍເຊັນ6</td>
             </tr>
         </table>
-
+                            
     </div>
 </body>
 

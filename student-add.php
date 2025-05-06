@@ -3,16 +3,17 @@ include_once 'login-check.php';
 include_once 'function/function.php';
 
 //ສ້າງຟັງຊັນເພື່ອ ສ້າງລະຫັດອັດຕະໂນມັດ
-function autoID(){
+function autoID()
+{
     $Stu_ID = "";
     global $link;
 
     $sql = "SELECT Max(Stu_ID) AS Stu_ID FROM student";
     $result = mysqli_query($link, $sql);
     $row = mysqli_fetch_assoc($result);
-    if(empty($row['Stu_ID'])) {
+    if (empty($row['Stu_ID'])) {
         $Stu_ID = "STU0001";
-    }else {
+    } else {
         $id = substr($row['Stu_ID'], 3, strlen($row['Stu_ID']));
         $id++;
         $Stu_ID = "STU" . sprintf("%04d", $id);
@@ -20,40 +21,40 @@ function autoID(){
     return $Stu_ID;
 }
 //ເອີ້ນໃຊ້ autoID   
-    autoID();
+autoID();
 
-    //ຖ້າກົດປຸ່ມເພີ້ມຂໍ້ມູນ
-    if (isset($_POST['btnAdd'])) {
-        $Stu_ID = autoID();
-        $Stu_name = data_input($_POST['Stu_name']);
-        $gender = $_POST['gender'];
-        $date_birth = $_POST['date_birth'];
-        $S_id = data_input($_POST['S_id']);
-        $cid = data_input($_POST['cid']);
-        $Sets = data_input($_POST['Sets']);
-        $Gen = data_input($_POST['Gen']);
-        $address = nl2br(trim(stripslashes($_POST['address'])));
-        $Parent = isset($_POST['Parent']) ? data_input($_POST['Parent']) : '';
-        $Parent_Tell = isset($_POST['Parent_Tell']) ? data_input($_POST['Parent_Tell']) : '';
-        $tell = isset($_POST['tell']) ? data_input($_POST['tell']) : '';
-        $status = "ຍັງບໍ່ເຂົ້າພັກ";
-    
-        $sql = "INSERT INTO student (
+//ຖ້າກົດປຸ່ມເພີ້ມຂໍ້ມູນ
+if (isset($_POST['btnAdd'])) {
+    $Stu_ID = autoID();
+    $Stu_name = data_input($_POST['Stu_name']);
+    $gender = $_POST['gender'];
+    $date_birth = $_POST['date_birth'];
+    $S_id = data_input($_POST['S_id']);
+    $cid = data_input($_POST['cid']);
+    $Sets = data_input($_POST['Sets']);
+    $Gen = data_input($_POST['Gen']);
+    $address = nl2br(trim(stripslashes($_POST['address'])));
+    $Parent = isset($_POST['Parent']) ? data_input($_POST['Parent']) : '';
+    $Parent_Tell = isset($_POST['Parent_Tell']) ? data_input($_POST['Parent_Tell']) : '';
+    $tell = isset($_POST['tell']) ? data_input($_POST['tell']) : '';
+    $status = "ຍັງບໍ່ເຂົ້າພັກ";
+
+    $sql = "INSERT INTO student (
             Stu_ID, Stu_name, gender, date_birth, S_id, cid, Sets, Gen, address, Parent, Parent_Tell, status, tell
         ) VALUES (
             '$Stu_ID', '$Stu_name', '$gender', '$date_birth', '$S_id', '$cid', '$Sets', '$Gen', '$address', '$Parent', '$Parent_Tell', '$status', '$tell'
         )";
-        
-    
-        $result = mysqli_query($link, $sql);
-        if ($result) {
-            $message = '<script> swal("ສໍາເລັດ","ຂໍ້ມູນບັນທຶກລົງຖານຂໍ້ມູນແລ້ວ","success",{button: "ຕົກລົງ",}); </script>';
-            $Stu_name=$gender=$date_birth=$S_id=$cid=$Sets=$Gen=$address=$Parent=$Parent_Tell=$status=$tell = null;
-        } else {
-            echo mysqli_error($link);
-        }
+
+
+    $result = mysqli_query($link, $sql);
+    if ($result) {
+        $message = '<script> swal("ສໍາເລັດ","ຂໍ້ມູນບັນທຶກລົງຖານຂໍ້ມູນແລ້ວ","success",{button: "ຕົກລົງ",}); </script>';
+        $Stu_name = $gender = $date_birth = $S_id = $cid = $Sets = $Gen = $address = $Parent = $Parent_Tell = $status = $tell = null;
+    } else {
+        echo mysqli_error($link);
     }
-    
+}
+
 
 ?>
 
@@ -183,7 +184,7 @@ function autoID(){
                                             </div>
                                         </div>
 
-                                        
+
                                         <div class="col-md-6">
                                             <!--ສາຂາ-->
                                             <div class="mb-3">
@@ -193,9 +194,9 @@ function autoID(){
                                                     <?php
                                                     $sql = "SELECT S_id, name FROM supplier ORDER  BY name ASC";
                                                     $result = mysqli_query($link, $sql);
-                                                    while($row = mysqli_fetch_assoc($result)){
+                                                    while ($row = mysqli_fetch_assoc($result)) {
                                                     ?>
-                                                        <option value="<?= @$row['S_id'] ?>" <?php if(@$S_id==@$row['S_id']) echo 'selected'?>>
+                                                        <option value="<?= @$row['S_id'] ?>" <?php if (@$S_id == @$row['S_id']) echo 'selected' ?>>
                                                             <?= @$row['name'] ?>
                                                         </option>
                                                     <?php
@@ -205,17 +206,17 @@ function autoID(){
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                
-                                      
-                                <div class="mb-3">
-                                    <label for="Gen">ຮຸ້ນທີ:</label>
 
-                                    <input type="text" class="form-control" id="Gen	" placeholder="ປ້ອນຮຸ້ນທີ" name="Gen" value="<?= @$Gen ?>">
-                                </div>
-                            </div>
 
-                          
-                            <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="Gen">ຮຸ້ນທີ:</label>
+
+                                                <input type="text" class="form-control" id="Gen	" placeholder="ປ້ອນຮຸ້ນທີ" name="Gen" value="<?= @$Gen ?>">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-6">
                                             <!--ພາກຮຽນ-->
                                             <div class="mb-3">
                                                 <label for="cid" class="form-label">ພາກຮຽນ</label>
@@ -224,9 +225,9 @@ function autoID(){
                                                     <?php
                                                     $sql = "SELECT cid, Name FROM customer ORDER  BY Name ASC";
                                                     $result = mysqli_query($link, $sql);
-                                                    while($row = mysqli_fetch_assoc($result)){
+                                                    while ($row = mysqli_fetch_assoc($result)) {
                                                     ?>
-                                                        <option value="<?= @$row['cid'] ?>" <?php if(@$cid==@$row['cid']) echo 'selected'?>>
+                                                        <option value="<?= @$row['cid'] ?>" <?php if (@$cid == @$row['cid']) echo 'selected' ?>>
                                                             <?= @$row['Name'] ?>
                                                         </option>
                                                     <?php
@@ -236,44 +237,63 @@ function autoID(){
                                             </div>
                                         </div>
 
-                                <div class="col-md-6">
-                                       
-                                       <div class="mb-3">
-                                           <label for="Sets">ຊຸດຮຽນ:</label>
-                                           <input type="text" class="form-control" id="Sets" placeholder="ປ້ອນຊຸດຮຽນ" name="Sets" value="<?= @$Sets ?>">
-                                       </div>
-                                   </div>
-
-                            
                                         <div class="col-md-6">
-                                    <!--ເງິນອຸດໜູນ-->
-                                    <div class="mb-3">
-                                        <label for="Parent" class="form-label">ຜູ້ປົກຄອງ</label>
-                                        <input type="text" class="form-control" id="Parent" placeholder="ປ້ອນຊື່ຜູ້ປົກຄອງ" name="Parent" value="<?= @$Parent ?>">
-                                    </div>
-                                </div>
 
-                                      
+                                            <div class="mb-3">
+                                                <label for="Sets">ຊຸດຮຽນ:</label>
+                                                <input type="text" class="form-control" id="Sets" placeholder="ປ້ອນຊຸດຮຽນ" name="Sets" value="<?= @$Sets ?>"inputmode="numeric"
+                                                    pattern="[0-9]*"
+                                                    oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+                                                    required>
+                                            </div>
+                                        </div>
+
+
                                         <div class="col-md-6">
-                                    <!--ເງິນອຸດໜູນ-->
-                                    <div class="mb-3">
-                                        <label for="tell" class="form-label">ເບີໂທລະສັບນັກສຶກສາ</label>
-                                        <input type="text" class="form-control" id="tell" placeholder="ປ້ອນເບີໂທລະສັບນັກສຶກສາ" name="tell" value="<?= @$tell ?>"required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <!--ເງິນອຸດໜູນ-->
-                                    <div class="mb-3">
-                                        <label for="Parent_Tell	" class="form-label">ເບີໂທລະສັບຜູ້ປົກຄອງ</label>
-                                        <input type="text" class="form-control" id="Parent_Tell	" placeholder="ປ້ອນຊື່ຜູ້ປົກຄອງ" name="Parent_Tell" value="<?= @$Parent_Tell ?>">
-                                    </div>
-                                </div>
+                                            <!--ເງິນອຸດໜູນ-->
+                                            <div class="mb-3">
+                                                <label for="Parent" class="form-label">ຜູ້ປົກຄອງ</label>
+                                                <input type="text" class="form-control" id="Parent" placeholder="ປ້ອນຊື່ຜູ້ປົກຄອງ" name="Parent" value="<?= @$Parent ?>">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-6">
+                                            <!--ເງິນອຸດໜູນ-->
+                                            <div class="mb-3">
+                                                <label for="tell" class="form-label">ເບີໂທລະສັບນັກສຶກສາ</label>
+                                                <input type="text" class="form-control" id="tell"
+                                                    name="tell"
+                                                    placeholder="ປ້ອນເບີໂທລະສັບນັກສຶກສາ"
+                                                    value="<?= @$tell ?>"
+                                                    inputmode="numeric"
+                                                    pattern="[0-9]*"
+                                                    oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+                                                    required>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <!--ເງິນອຸດໜູນ-->
+                                            <div class="mb-3">
+                                                <label for="Parent_Tell	" class="form-label">ເບີໂທລະສັບຜູ້ປົກຄອງ</label>
+                                                  <input type="text" class="form-control" id="Parent_Tell"
+                                                    name="Parent_Tell"
+                                                    placeholder="ປ້ອນເບີໂທລະສັບຜູ້ປົກຄອງ"
+                                                    value="<?= @$Parent_Tell ?>"
+                                                    inputmode="numeric"
+                                                    pattern="[0-9]*"
+                                                    oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+                                                    required>
+
+                                            </div>
+                                        </div>
 
 
                                     </div>
                                 </div>
-                               
- 
+
+
                                 <div class="col-md-12 text-center">
                                     <!--ປຸ່ມ-->
                                     <input type="submit" name="btnAdd" value="ເພີ້ມຂໍ້ມູນ" class="btn btn-primary" style="width: 100px; border-radius: 20px">
@@ -283,25 +303,25 @@ function autoID(){
                                     <button onclick="window.location.reload(true)" class="btn btn-success" style="width: 100px; border-radius: 20px;">ໂຫຼດຄືນໃໝ່</button>
                                 </div>
 
-                                                   </div>
-                                   </div>
-                                    </div>
-                                            
-                                                                 
-                         
                             </div>
-
-                        </form>
                     </div>
                 </div>
-            
+
+
+
             </div>
-        </main>
-        <!-- footer -->
-        <?php include_once 'footer.php' ?>
+
+            </form>
+    </div>
+    </div>
 
     </div>
-    
+    </main>
+    <!-- footer -->
+    <?php include_once 'footer.php' ?>
+
+    </div>
+
 
 </body>
 
@@ -312,7 +332,7 @@ function autoID(){
 
 <script>
     $(document).ready(function() {
-  
+
 
         $('.btn-file :file').on('fileselect', function(event, label) {
 

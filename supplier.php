@@ -9,12 +9,12 @@ if (isset($_POST['btnAdd'])) {
     $addres = data_input($_POST['addres']);
    // $incentive = str_replace(".", "", $_POST['incentive']);
     //ກວດສອບວ່າລະຫັດຊໍ້າຫຼືບໍ່
-    $sql = "SELECT *FROM supplier WHERE S_id='$S_id' ";
+    $sql = "SELECT *FROM majors WHERE S_id='$S_id' ";
     $result = mysqli_query($link, $sql);
     if (mysqli_num_rows($result) > 0) {
         $error_S_id = "ລະຫັດນີ້ຖືກນໍາໃຊ້ແລ້ວ";
     } else {
-        $sql = "INSERT INTO supplier VALUES('$S_id', '$name',  '$addres')";
+        $sql = "INSERT INTO majors VALUES('$S_id', '$name',  '$addres')";
         $result = mysqli_query($link, $sql);
         if ($result) {
             $message = '<script>swal("ສໍາເລັດ", "ຂໍ້ມູນຖືກບັນທຶກລົງໃນຖານຂໍ້ມູນແລ້ວ",
@@ -26,7 +26,7 @@ if (isset($_POST['btnAdd'])) {
     }
 } else if (@$_GET['action'] == 'edit') { //ຖ້າກົດເຄື່ອງໝາຍແກ້ໄຂທີ່ຫ້ອງຕາຕະລາງໃຫ້ເອົງຄ່າຂື້ນຄ້າງຟອມ
     $S_id = $_GET['S_id'];
-    $sql = "SELECT *FROM supplier WHERE S_id='$S_id'";
+    $sql = "SELECT *FROM majors WHERE S_id='$S_id'";
     $result = mysqli_query($link, $sql);
     $row = mysqli_fetch_assoc($result);
     $name = $row['name'];
@@ -38,7 +38,7 @@ if (isset($_POST['btnAdd'])) {
      $addres = data_input($_POST['addres']);
   //  $incentive = str_replace(".", "", $_POST['incentive']);
    
-    $sql = "UPDATE supplier SET name='$name',addres='$addres' WHERE S_id='$S_id'";
+    $sql = "UPDATE majors SET name='$name',addres='$addres' WHERE S_id='$S_id'";
     $result = mysqli_query($link, $sql);
     if ($result) {
          $message = '<script>swal("ສໍາເລັດ", "ປັບປຸງຂໍ້ມູນໃນຖານຂໍ້ມູນແລ້ວ","success",{button: "ຕົກລົງ"});</script>';
@@ -149,7 +149,7 @@ if (isset($_POST['btnAdd'])) {
                                 </thead>
                                 <tbody>
                                  <?php
-                                    $sql = "SELECT *FROM supplier ORDER BY name ASC";
+                                    $sql = "SELECT *FROM majors ORDER BY name ASC";
                                     $result = mysqli_query($link, $sql);
                                     $number = 1;
                                     while($row = mysqli_fetch_assoc($result)) {           

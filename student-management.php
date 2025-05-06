@@ -12,7 +12,7 @@ require_once 'login-check.php';
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>ລະບົບຈັດການຂໍ້ມູນພະນັກງານ</title>
+    <title>ລະບົບຈັດການຂໍ້ມູນນັກສຶກສາ</title>
     <link rel="icon" href="images/icon_logo.jpg">
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -42,7 +42,7 @@ require_once 'login-check.php';
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
-                <h4 class="mt-4">ຈັດການຂໍ້ມູນພະນັກງານ</h4>
+                <h4 class="mt-4">ລະບົບຈັດການຂໍ້ມູນນັກສຶກສາ</h4>
                 <p class="d-flex justify-content-end">
                     <a href="student-add.php" class="btn btn-success"><i class="fas fa-plus-circle"></i>&nbsp;ເພີ້ມຂໍ້ມູນ</a>
                 </p>
@@ -61,7 +61,7 @@ require_once 'login-check.php';
                     <tbody>
                         <?php
                             $sql = "SELECT e.Stu_ID, e.Stu_name, e.gender, d.name AS name 
-                            FROM student e JOIN supplier d ON e.S_id = d.S_id ORDER BY e.Stu_ID DESC" ;
+                            FROM student e JOIN majors d ON e.S_id = d.S_id ORDER BY e.Stu_ID DESC" ;
                             $result = mysqli_query($link, $sql);
                             while ($row = mysqli_fetch_assoc($result)){
                             ?>

@@ -2,7 +2,7 @@
 $host = "localhost";
 $user = "root";
 $password = "";
-$database = "php_workshop";
+$database = "dormatory_laovieng";
 
 
 $link = mysqli_connect($host,$user,$password,$database);

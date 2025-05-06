@@ -12,7 +12,7 @@ if(isset($_POST['btnRegister'])) {
     $con_pwd = data_input($_POST['con_pwd']);
 
     //ກວດສອບ username ມີໃນລະບົບແລ້ວ ຫຼື ບໍ່
-    $sql = "SELECT *FROM user WHERE username = '$username'";
+    $sql = "SELECT *FROM users WHERE username = '$username'";
     $result = mysqli_query($link, $sql);
     if(mysqli_num_rows($result) > 0){
         $error_username = " ບັນຊີເຂົ້າໃຊ້ນີ້ ຖືກນຳໃຊ້ເເລ້ວ";
@@ -25,7 +25,7 @@ if(isset($_POST['btnRegister'])) {
     //ກ່ອນເພີ່ມຂໍ້ມູນລົງຖານຂໍ້ມູນຕ້ອງກວດສອບກ່ອນ ຖ້າ $error_username ແລະ $error_password
     if (empty($error_username) && empty($error_password)) {
         $pwd = md5($pwd); //ເຂົ້າລະຫັດຜ່ານ
-        $sql = "INSERT INTO user(`name`, `tel`, `username`, `password`) VALUES ('$name', '$tel', '$username', '$pwd')";
+        $sql = "INSERT INTO users(`name`, `tel`, `username`, `password`) VALUES ('$name', '$tel', '$username', '$pwd')";
         $result = mysqli_query($link, $sql);
         if ($result) {
             $_SESSION['username'] = $username;

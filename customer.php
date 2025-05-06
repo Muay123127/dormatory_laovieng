@@ -8,12 +8,12 @@ if (isset($_POST['btnAdd'])) {
     $phone = data_input($_POST['phone']);
    // $incentive = str_replace(".", "", $_POST['incentive']);
     //ກວດສອບວ່າລະຫັດຊໍ້າຫຼືບໍ່
-    $sql = "SELECT *FROM customer WHERE cid='$cid' ";
+    $sql = "SELECT *FROM part WHERE cid='$cid' ";
     $result = mysqli_query($link, $sql);
     if (mysqli_num_rows($result) > 0) {
         $error_cid = "ລະຫັດນີ້ຖືກນໍາໃຊ້ແລ້ວ";
     } else {
-        $sql = "INSERT INTO customer VALUES('$cid', '$Name', '$phone')";
+        $sql = "INSERT INTO part VALUES('$cid', '$Name', '$phone')";
         $result = mysqli_query($link, $sql);
         if ($result) {
             $message = '<script>swal("ສໍາເລັດ", "ຂໍ້ມູນຖືກບັນທຶກລົງໃນຖານຂໍ້ມູນແລ້ວ",
@@ -25,7 +25,7 @@ if (isset($_POST['btnAdd'])) {
     }
 } else if (@$_GET['action'] == 'edit') { //ຖ້າກົດເຄື່ອງໝາຍແກ້ໄຂທີ່ຫ້ອງຕາຕະລາງໃຫ້ເອົງຄ່າຂື້ນຄ້າງຟອມ
     $cid = $_GET['cid'];
-    $sql = "SELECT *FROM customer WHERE cid='$cid'";
+    $sql = "SELECT *FROM part WHERE cid='$cid'";
     $result = mysqli_query($link, $sql);
     $row = mysqli_fetch_assoc($result);
     $Name = $row['Name'];
@@ -37,7 +37,7 @@ if (isset($_POST['btnAdd'])) {
     $phone = data_input($_POST['phone']);
   //  $incentive = str_replace(".", "", $_POST['incentive']);
    
-    $sql = "UPDATE customer SET Name='$Name',phone='$phone' WHERE cid='$cid'";
+    $sql = "UPDATE part SET Name='$Name',phone='$phone' WHERE cid='$cid'";
     $result = mysqli_query($link, $sql);
     if ($result) {
          $message = '<script>swal("ສໍາເລັດ", "ປັບປຸງຂໍ້ມູນໃນຖານຂໍ້ມູນແລ້ວ","success",{button: "ຕົກລົງ"});</script>';
@@ -149,7 +149,7 @@ if (isset($_POST['btnAdd'])) {
                                 </thead>
                                 <tbody>
                                  <?php
-                                    $sql = "SELECT *FROM customer ORDER BY Name ASC";
+                                    $sql = "SELECT *FROM part ORDER BY Name ASC";
                                     $result = mysqli_query($link, $sql);
                                     $number = 1;
                                     while($row = mysqli_fetch_assoc($result)) {           

@@ -8,7 +8,7 @@ if(isset($_POST['btnLogin'])) {
     $password = md5(mysqli_real_escape_string($link, $_POST['pwd']));
     $pwd = $_POST['pwd'];// ເກັບໄວ້ຄ້າງຟອມກໍລະນີລັອກອິນບໍ່ຜ່ານ
 
-    $sql = "SELECT *FROM user WHERE username='$username' AND password= '$password' ";
+    $sql = "SELECT *FROM users WHERE username='$username' AND password= '$password' ";
     $result = mysqli_query($link, $sql);
     if(mysqli_num_rows($result) > 0){
         $row = mysqli_fetch_assoc($result);

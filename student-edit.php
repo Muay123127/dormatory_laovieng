@@ -23,6 +23,7 @@ if (isset($_GET['Stu_ID'])) {
 
 // ຮັບຄ່າຈາກຟອມເມື່ອກົດປຸ່ມ btnEdit
 if (isset($_POST['btnEdit'])) {
+    $Stu_ID = data_input($_POST['Stu_ID']);
     $Stu_name = data_input($_POST['Stu_name']);
     $gender = $_POST['gender'];
     $date_birth = $_POST['date_birth'];
@@ -36,9 +37,10 @@ if (isset($_POST['btnEdit'])) {
     $tell = isset($_POST['tell']) ? data_input($_POST['tell']) : '';
     $status = data_input($_POST['status']);
 
-    $sql = "UPDATE student SET Stu_name='$Stu_name', gender='$gender', date_birth='$date_birth', address='$address', S_id='$S_id',"
-    . " cid='$cid', Sets='$Sets', Gen='$Gen', Parent='$Parent', Parent_Tell='$Parent_Tell', tell='$tell' WHERE Stu_ID='$Stu_ID'";
-
+    $sql = "UPDATE student SET Stu_name='$Stu_name', gender='$gender', date_birth='$date_birth', address='$address', S_id='$S_id',
+    cid='$cid', Sets='$Sets', Gen='$Gen', Parent='$Parent', Parent_Tell='$Parent_Tell', tell='$tell', status='$status'
+    WHERE Stu_ID='$Stu_ID'";
+    
     if (mysqli_query($link, $sql)) {
         header('location: student-management.php');
     } else {
@@ -134,7 +136,8 @@ if (isset($_POST['btnEdit'])) {
                                             <!--ລະຫັດພະນັກງານ-->
                                             <div class="mb-3">
                                                 <label for="Stu_ID" class="form-label">ລະຫັດນັກສຶກສາ:</label>
-                                                <input type="text" class="form-control" id="Stu_ID" placeholder="ກະລຸນາປ້ອນລະຫັດນັກສຶກສາ" name="Stu_ID" value="" placeholder="ລະຫັດໃສ່ອັດຕະໂນມັດ" readonly>
+                                                <input type="text" class="form-control" id="Stu_ID" name="Stu_ID" value="<?= @$Stu_ID ?>" readonly>
+
                                             </div>
                                         </div>
                                         <div class="col-md-6">
