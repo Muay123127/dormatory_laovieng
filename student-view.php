@@ -5,7 +5,7 @@ $output = '';
 $sql = "SELECT e.Stu_ID, e.Stu_name, e.gender, e.date_birth, "
     . " CONCAT(TIMESTAMPDIFF(YEAR, date_birth, curdate()),' ປີ ',MOD(TIMESTAMPDIFF(MONTH,  date_birth, curdate()), 12),' ເດືອນ ',TIMESTAMPDIFF(DAY, DATE_ADD( date_birth, INTERVAL TIMESTAMPDIFF(MONTH,  date_birth, curdate()) MONTH), curdate()),' ວັນ ') AS age, "
     . " e.address,  s.name AS name, c.Name, e.Sets,e.Gen,e.tell, e.status "
-    . " FROM student e JOIN supplier s ON e.S_id = s.S_id JOIN customer c ON e.cid=c.cid WHERE e.Stu_ID='$Stu_ID'";
+    . " FROM student e JOIN majors s ON e.S_id = s.S_id JOIN part c ON e.cid=c.cid WHERE e.Stu_ID='$Stu_ID'";
 
 $result = mysqli_query($link, $sql);
 while ($row = mysqli_fetch_assoc($result)) {

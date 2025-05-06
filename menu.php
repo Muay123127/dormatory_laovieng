@@ -1,15 +1,16 @@
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-<!-- Bootstrap Icons CDN -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- Bootstrap Icons CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
     <!-- Navbar Brand-->
     <!--<a class="navbar-brand ps-3" href="index.php"><i style="color:gold; font-family: Times New Roman">ຫໍພັກວິທະຍາໄລ ລາວວຽງ</i></a> -->
 
     <a class="navbar-brand ps-3 d-flex flex-column align-items-start" href="index.php">
         <img src="images/logo.png" alt="Logo" style="height: 60px; width: auto; margin-top: 50px; ">
-        <span style="color: white; font-family: 'Phetsarath OT', sans-serif; font-weight: bold; font-size: 1.2rem; margin-top: 5px;">
-     
-        ວິທະຍາໄລ ລາວວຽງ
+        <span
+            style="color: white; font-family: 'Phetsarath OT', sans-serif; font-weight: bold; font-size: 1.2rem; margin-top: 5px;">
+
+            ວິທະຍາໄລ ລາວວຽງ
         </span>
     </a>
     </a>
@@ -27,17 +28,21 @@
     <!-- Navbar-->
     <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"><i class="fas fa-user"></i></a>
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"><i
+                    class="fas fa-user"></i></a>
             <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="profile.php">ໂປຣໄຟລ໌</a></li>
-                <li><a class="dropdown-item" href="register.php">ລົງທະບຽນ</a></li>
                 <?php
-                if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
-                    echo ' <li><a class="dropdown-item" href="login-form.php">ເຂົ້າໃຊ້ລະບົບ</a></li>';
-                } else {
+                if (! empty($_SESSION['username']) && ! empty($_SESSION['password'])) {
+                    echo '<li><a class="dropdown-item" href="profile.php">ໂປຣໄຟລ໌</a></li>';
+                    if ($_SESSION['role'] == 'admin') {
+                        echo '<li><a class="dropdown-item" href="register.php">ຈັດການຜູ້ໃຊ້ລະບົບ</a></li>';
+                    }
                     echo '<li><a class="dropdown-item" href="logout.php">ອອກຈາກໃຊ້ລະບົບ</a></li>';
+                } else {
+                    echo '<li><a class="dropdown-item" href="login-form.php "> ເຂົ້າໃຊ້ລະບົບ</a></li>';
                 }
-                ?>
+            ?>
+
             </ul>
         </li>
     </ul>
@@ -55,38 +60,34 @@
                     </a>
 
 
-
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsemanagement" aria-expanded="false" aria-controls="collapseLayouts">
+                    <?php
+                if ($_SESSION['role'] == 'admin') {?>
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                        data-bs-target="#collapsemanagement" aria-expanded="false" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon"><i class="fas fa-database"></i></div>
                         ຈັດການຂໍ້ມູນ
 
                     </a>
-                    <div class="collapse" id="collapsemanagement" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                    <div class="collapse" id="collapsemanagement" aria-labelledby="headingOne"
+                        data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="room.php">ຈັດການຂໍ້ມູນຫ້ອງ</a>
                             <a class="nav-link" href="salary.php">ຈັດການຂໍ້ມູນຂັ້ນເງິນເດືອນ</a>
                             <a class="nav-link" href="department.php">ຈັດການຂໍ້ມູນພະແນກ</a>
                             <a class="nav-link" href="customer.php">ຈັດການຂໍ້ມູນພາກຮຽນ</a>
                             <a class="nav-link" href="supplier.php">ຈັດການຂໍ້ມູນສາຂາຮຽນ</a>
-             
+
                             <a class="nav-link" href="emp-management.php">ຈັດການຂໍ້ມູນພະນັກງານ</a>
                         </nav>
                     </div>
-                
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsereport" aria-expanded="false" aria-controls="collapseLayouts">
+                    <?php }
+              ?>
+                    <!-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsereport" aria-expanded="false" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
                         ຫນ້າວຽກ
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a>
-                    <div class="collapse" id="collapsemanagement" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="#">ຈອງຫ້ອງ</a>
-                            <a class="nav-link" href="#">ເຂົ້າພັກ</a>
-                            <a class="nav-link" href="#">ອອກພັກ</a>
-                            <a class="nav-link" href="#">ຍ້າຍຫ້ອງ</a>
-                            <a class="nav-link" href="#">ເບິ່ງສະມາຊິກໃນຫ້ອງ</a>
-                        </nav>
-                    </div>
+                    </a> -->
+
                     <a class="nav-link" href="student-management.php">
                         <div class="sb-nav-link-icon"><i class="bi bi-person-lines-fill"></i></div>
                         ຂໍ້ມູນນັກສຶກສາ
@@ -94,54 +95,38 @@
 
 
 
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsereport" aria-expanded="false" aria-controls="collapseLayouts">
+
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages"
+                        aria-expanded="false" aria-controls="collapsePages">
+                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                        ໜ້າວຽກ
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapsePages" aria-labelledby="headingTwo"
+                        data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="booking-management.php">ຈອງຫ້ອງ</a>
+                            <a class="nav-link" href="checkin.php">ເຂົ້າພັກ</a>
+                            <a class="nav-link" href="#">ອອກພັກ</a>
+                            <a class="nav-link" href="#">ຍ້າຍຫ້ອງ</a>
+                            <a class="nav-link" href="#">ເບິ່ງສະມາຊິກໃນຫ້ອງ</a>
+                        </nav>
+                    </div>
+
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsereport"
+                        aria-expanded="false" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
                         ລາຍງານ
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
-                    <div class="collapse" id="collapsereport" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                    <div class="collapse" id="collapsereport" aria-labelledby="headingOne"
+                        data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="emp-report.php">ລາຍງານຂໍ້ມູນພະນັກງານ</a>
                             <a class="nav-link" href="#">ລາຍງານຂໍ້ມູນພະແນກ</a>
                             <a class="nav-link" href="#">ລາຍງານຂໍ້ມູນຂັ້ນເງິນເດືອນ</a>
                         </nav>
                     </div>
-
-
-
-
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                        Pages
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a>
-                    <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                Authentication
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="#">Login</a>
-                                    <a class="nav-link" href="#">Register</a>
-                                    <a class="nav-link" href="#">Forgot Password</a>
-                                </nav>
-                            </div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                Error
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="#">401 Page</a>
-                                    <a class="nav-link" href="#">404 Page</a>
-                                    <a class="nav-link" href="#">500 Page</a>
-                                </nav>
-                            </div>
-                        </nav>
-                    </div>
-
                     <div class="sb-sidenav-menu-heading">ADDONS</div>
                     <a class="nav-link" href="chart.php">
                         <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
@@ -158,7 +143,7 @@
                 </div>
             </div>
             <div class="sb-sidenav-footer">
-                <div class="small">ຜູ້ເຂົ້າໃຊ້ລະບົບ: <?= @$_SESSION['name'] ?>
+                <div class="small">ຜູ້ເຂົ້າໃຊ້ລະບົບ: <?php echo @$_SESSION['name'] ?>
                 </div>
             </div>
         </nav>

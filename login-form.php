@@ -15,6 +15,7 @@ if(isset($_POST['btnLogin'])) {
         $_SESSION['name'] = $row['name'];
         $_SESSION['username'] = $username;
         $_SESSION['password'] = $password;
+        $_SESSION['role'] = $row['role'];
         header('location: index.php');
 
     } else {
